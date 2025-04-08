@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Página Personal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <header>
+    <h1>Brigitte</h1>
+    <nav>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a href="#hobbies">Mis hobbies</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+  </header>
+
+  <section id="sobre-mi">
+    <h2>Sobre mí</h2>
+    <img src="./MiFoto.jpeg" alt="Foto de perfil">
+    <p>
+      Me apasiona el desarrollo de sistemas seguros y eficientes. Mi formación en Desarrollo de Software me ha permitido adquirir experiencia en arquitecturas backend, ciberseguridad, testing y gestión de proyectos.<br>
+      A lo largo de mi trayectoria como desarrolladora, he trabajado en proyectos que integran APIs, seguridad, gestión de datos y calidad de software. Además, mis conocimientos en infraestructuras distribuidas y gestión de proyectos me permiten abordar desafíos desde una perspectiva técnica y estratégica.<br>
+      Disfruto creando tecnologías confiables que aportan valor y seguridad, siempre buscando nuevos desafíos que me permitan seguir creciendo mientras colaboro con equipos proactivos e innovadores.
+    </p>
+  </section>
+
+  <section id="hobbies">
+    <h2>Mis hobbies</h2>
+    <ul>
+      <li>Hacer alambrismo</li>
+      <li>Escuchar música y descubrir bandas nuevas</li>
+      <li>Ver documentales y series de ciencia ficción</li>
+      <li>Jardinería</li>
+    </ul>
+  </section>
+
+  <section id="contacto">
+    <h2>Contacto</h2>
+    <form id="formulario-contacto">
+      <label for="nombre">¿Cómo te llamas precios@?:</label>
+      <input type="text" id="nombre" name="nombre" required />
+      <button type="button" onclick="saludar()">Enviar</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>Creado por Brigitte Company © 2025</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
