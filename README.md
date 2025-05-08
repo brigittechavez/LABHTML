@@ -24,3 +24,12 @@ Aquí subirá todo lo hecho en el paso anterior.
 Página que resume su historia personal.
 - ### Sección de CV: 
 Resumen de logros académicos y profesionales, aquí se deben incluir sus habilidades.
+- https://www.markdownguide.org/getting-started/
+
+# Paso 7
+- Una vez que hayas subido todo, debes cuidar el diseño y la presentación del portafolio. Asegúrate de que la página sea accesible, fácil de navegar y profesional. https://docs.google.com/document/d/1Y3dMTQ2xfvr1ZocAQgiRXV__-_v1ZnNK/edit?tab=t.0
+
+# Paso 8
+- Añadir una sección que contenga una reflexión sobre su propio crecimiento y habilidades como desarrolladores hasta el momento.
+
+- Identificar áreas de mejora y establecer metas a corto y largo plazo. Puedes titular esta entrada: “Reflexión de mi camino como desarrollador/a Java”.

@@ -1,0 +1,332 @@
+/* ========================
+   VARIABLES (ROOT)
+======================== */
+:root {
+  /* Primary Colors */
+  --primary-color: #FF9EAA;
+  --primary-hover: #FFB5BE;
+  --secondary-color: #6E7C7C;
+  
+  /* Background Colors */
+  --dark-bg: #1A1A1A;
+  --darker-bg: #121212;
+  
+  /* Text Colors */
+  --light-text: #ffffff;
+  --gray-text: #CECECE;
+  
+  /* Accent Colors */
+  --accent-pink: hsla(352, 100%, 89%, 1);
+  --accent-pink-dark: hsla(352, 30%, 45%, 1);
+  --accent-gray: hsla(180, 5%, 46%, 1);
+  --accent-dark: hsla(0, 0%, 13%, 1);
+  
+  /* Add circle-specific colors using existing pink palette */
+  --circle-pink1: rgba(255, 158, 170, 0.3);    /* Based on primary-color */
+  --circle-pink2: rgba(255, 181, 190, 0.3);    /* Based on primary-hover */
+  --circle-pink3: hsla(352, 100%, 89%, 0.3);   /* Based on accent-pink */
+  --circle-pink4: hsla(352, 30%, 45%, 0.3);    /* Based on accent-pink-dark */
+  
+  /* Font and Spacing Variables */
+  --titleFont: "acorn", sans-serif;
+  --bodyFont: "gt", sans-serif;
+  --monoFont: ui-monospace, monospace;
+  --font-nav: clamp(1rem, 0.9235rem + 0.3265vw, 1.25rem);
+  --font-link: clamp(0.875rem, 0.7985rem + 0.3265vw, 1.125rem);
+  --spacing-xs: 1rem;
+  --spacing-sm: 2rem;
+  --spacing-md: 4rem;
+  --spacing-lg: 8rem;
+  --spacing-nav: clamp(1rem, 0.8rem + 0.5vw, 1.5rem);
+  --transition: all 0.3s ease;
+  --transition-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --zindex-nav: 1000;
+  --color-green400: hsla(160, 52%, 71%, 1);
+  --dm-green-dark: #172920;
+}
+
+/* ========================
+   BASE STYLES
+======================== */
+/* Fondo y animaciones */
+body.dark-theme {
+  font-family: var(--bodyFont);
+  background-color: #000000;
+  color: var(--light-text);
+  line-height: 1.6;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.animated-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background: #000000;
+  overflow: hidden;
+}
+
+.floating-circle {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.floating-circle:nth-child(1) {
+  width: 150px;
+  height: 150px;
+  background: var(--circle-pink1);
+  animation: fadeCircle1 15s ease-in-out infinite;
+  top: 15%;
+  left: 15%;
+}
+
+.floating-circle:nth-child(2) {
+  width: 180px;
+  height: 180px;
+  background: var(--circle-pink2);
+  animation: fadeCircle2 20s ease-in-out infinite;
+  top: 40%;
+  right: 25%;
+}
+
+.floating-circle:nth-child(3) {
+  width: 120px;
+  height: 120px;
+  background: var(--circle-pink3);
+  animation: fadeCircle3 18s ease-in-out infinite;
+  bottom: 20%;
+  left: 30%;
+}
+
+.floating-circle:nth-child(4) {
+  width: 160px;
+  height: 160px;
+  background: var(--circle-pink4);
+  animation: fadeCircle4 22s ease-in-out infinite;
+  bottom: 35%;
+  right: 20%;
+}
+
+@keyframes fadeCircle1 {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  25%, 75% { opacity: 0.4; transform: translate(100px, 50px); }
+  50% { opacity: 0.5; transform: translate(50px, 100px); }
+}
+
+@keyframes fadeCircle2 {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  25%, 75% { opacity: 0.4; transform: translate(-70px, 30px); }
+  50% { opacity: 0.5; transform: translate(-30px, -50px); }
+}
+
+@keyframes fadeCircle3 {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  25%, 75% { opacity: 0.4; transform: translate(60px, -40px); }
+  50% { opacity: 0.5; transform: translate(-50px, -60px); }
+}
+
+@keyframes fadeCircle4 {
+  0%, 100% { opacity: 0; transform: translate(0, 0); }
+  25%, 75% { opacity: 0.4; transform: translate(-50px, 60px); }
+  50% { opacity: 0.5; transform: translate(60px, -40px); }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--titleFont);
+  font-weight: 700;
+  color: var(--light-text);
+  letter-spacing: -0.025em;
+}
+
+.text-gray {
+  color: var(--gray-text);
+  opacity: 0.9;
+  line-height: 1.8;
+}
+
+/* ========================
+   NAVIGATION
+======================== */
+#nav-placeholder {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--zindex-nav);
+  display: flex;
+  justify-content: center;
+  padding-top: 2rem;
+}
+
+.navbar {
+  background: rgba(18, 18, 18, 0.8);
+  backdrop-filter: blur(20px);
+  border-radius: 100px;
+  /* border: 1px solid rgba(255, 255, 255, 0.1); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 2rem;
+  width: auto;
+  max-width: 700px;
+  margin: 1.25rem auto 0;
+  font-family: var(--titleFont);
+  font-size: var(--font-nav);
+  transition: var(--transition);
+}
+
+.navbar-nav {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+}
+
+.nav-link {
+  color: var(--accent-pink);
+  text-decoration: none;
+  font-size: var(--font-link);
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.3s var(--transition-bounce);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary-color);
+  transition: width 0.3s var(--transition-bounce);
+}
+
+.nav-link:hover {
+  color: var(--primary-hover);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* ========================
+   CARDS
+======================== */
+.card {
+  background: var(--darker-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  transition: var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  border-color: var(--primary-color);
+  box-shadow: 0 20px 40px rgba(255, 158, 170, 0.1);
+}
+
+/* ========================
+   SKILLS SECTION
+======================== */
+.skills-section li {
+  background: var(--darker-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--spacing-xs);
+  padding: var(--spacing-xs);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.skills-section li:hover {
+  transform: translateX(10px);
+  border-color: var(--primary-color);
+  background: rgba(255, 158, 170, 0.05);
+}
+
+.skills-section i {
+  color: var(--primary-color);
+  transition: var(--transition);
+}
+
+/* ========================
+   BUTTONS
+======================== */
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--darker-bg) !important;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-hover) !important;
+  border-color: var(--primary-hover) !important;
+}
+
+/* ========================
+   BADGES
+======================== */
+.badge {
+  background-color: var(--accent-dark) !important;
+  color: var(--primary-color) !important;
+}
+
+/* ========================
+   ANIMATIONS
+======================== */
+.animate-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s var(--transition-bounce);
+}
+
+.animate-in.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+
+/* ========================
+   MEDIA QUERIES
+======================== */
+@media (max-width: 768px) {
+  .navbar {
+    width: calc(100% - 2rem);
+    margin: 0 1rem;
+    padding: 0.5rem 1rem;
+  }
+
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(18, 18, 18, 0.95);
+    border-radius: 1rem;
+    margin-top: 0.5rem;
+    padding: 1rem;
+  }
+
+  .skills-section li {
+    padding: var(--spacing-xs);
+  }
+}
+
+@media (min-width: 992px) {
+  .navbar {
+    padding: 0.75rem 3rem;
+  }
+}
