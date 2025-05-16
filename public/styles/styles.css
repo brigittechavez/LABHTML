@@ -22,10 +22,10 @@
   --accent-dark: hsla(0, 0%, 13%, 1);
   
   /* Add circle-specific colors using existing pink palette */
-  --circle-pink1: rgba(255, 158, 170, 0.3);    /* Based on primary-color */
-  --circle-pink2: rgba(255, 181, 190, 0.3);    /* Based on primary-hover */
-  --circle-pink3: hsla(352, 100%, 89%, 0.3);   /* Based on accent-pink */
-  --circle-pink4: hsla(352, 30%, 45%, 0.3);    /* Based on accent-pink-dark */
+  --circle-pink1: rgba(255, 158, 170, 0.08);    /* Very subtle pink */
+  --circle-pink2: rgba(255, 181, 190, 0.06);    /* Even more subtle */
+  --circle-pink3: rgba(255, 200, 210, 0.07);    /* Different pink shade */
+  --circle-pink4: rgba(255, 140, 160, 0.05);    /* Another subtle variation */
   
   /* Font and Spacing Variables */
   --titleFont: "acorn", sans-serif;
@@ -49,93 +49,62 @@
    BASE STYLES
 ======================== */
 /* Fondo y animaciones */
+/* ========================
+   BASE STYLES
+======================== */
+/* Fondo y animaciones */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
 body.dark-theme {
-  font-family: var(--bodyFont);
-  background-color: #000000;
+  margin: 0;
+  background-color: #000000; /* Color base, pero será cubierto por Finisher-Header */
   color: var(--light-text);
   line-height: 1.6;
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  font-family: var(--bodyFont);
 }
 
-.animated-background {
+/* Finisher Header - Adaptado para cubrir todo el body */
+body.dark-theme.finisher-header {
+  position: relative; /* Cambiado de fixed a relative */
+  width: 100%;
+  min-height: 100vh;
+  z-index: 0; /* No negativo para que sea parte del flujo normal */
+}
+
+/* Asegurarse de que el contenido esté por encima del fondo animado */
+#nav-placeholder, main, section, .card, .skills-section li {
+  position: relative;
+  z-index: 1;
+}
+
+/* Eliminar la clase .finisher-header anterior ya que ahora se aplica al body */
+/* .finisher-header {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
   z-index: -1;
-  background: #000000;
-  overflow: hidden;
-}
-
-.floating-circle {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(60px);
-  opacity: 0;
   pointer-events: none;
-}
+} */
 
-.floating-circle:nth-child(1) {
-  width: 150px;
-  height: 150px;
-  background: var(--circle-pink1);
-  animation: fadeCircle1 15s ease-in-out infinite;
-  top: 15%;
-  left: 15%;
-}
-
-.floating-circle:nth-child(2) {
-  width: 180px;
-  height: 180px;
-  background: var(--circle-pink2);
-  animation: fadeCircle2 20s ease-in-out infinite;
-  top: 40%;
-  right: 25%;
-}
-
-.floating-circle:nth-child(3) {
-  width: 120px;
-  height: 120px;
-  background: var(--circle-pink3);
-  animation: fadeCircle3 18s ease-in-out infinite;
-  bottom: 20%;
-  left: 30%;
-}
-
-.floating-circle:nth-child(4) {
-  width: 160px;
-  height: 160px;
-  background: var(--circle-pink4);
-  animation: fadeCircle4 22s ease-in-out infinite;
-  bottom: 35%;
-  right: 20%;
-}
-
-@keyframes fadeCircle1 {
-  0%, 100% { opacity: 0; transform: translate(0, 0); }
-  25%, 75% { opacity: 0.4; transform: translate(100px, 50px); }
-  50% { opacity: 0.5; transform: translate(50px, 100px); }
-}
-
-@keyframes fadeCircle2 {
-  0%, 100% { opacity: 0; transform: translate(0, 0); }
-  25%, 75% { opacity: 0.4; transform: translate(-70px, 30px); }
-  50% { opacity: 0.5; transform: translate(-30px, -50px); }
-}
-
-@keyframes fadeCircle3 {
-  0%, 100% { opacity: 0; transform: translate(0, 0); }
-  25%, 75% { opacity: 0.4; transform: translate(60px, -40px); }
-  50% { opacity: 0.5; transform: translate(-50px, -60px); }
-}
-
-@keyframes fadeCircle4 {
-  0%, 100% { opacity: 0; transform: translate(0, 0); }
-  25%, 75% { opacity: 0.4; transform: translate(-50px, 60px); }
-  50% { opacity: 0.5; transform: translate(60px, -40px); }
+/* Asegurar que el canvas de Finisher-Header esté detrás de todo */
+canvas.finisher-canvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -151,9 +120,9 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.8;
 }
 
-/* ========================
-   NAVIGATION
-======================== */
+
+
+
 #nav-placeholder {
   position: fixed;
   top: 0;

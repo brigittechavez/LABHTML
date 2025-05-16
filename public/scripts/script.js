@@ -1,25 +1,13 @@
-// Update loadComponent to return a promise
 function loadComponent(url, containerId) {
-    console.log(`Loading component from ${url} into ${containerId}`); // Debug
-    return fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                console.error('Component fetch error:', response.status);
-                throw new Error(`Component not found: ${response.status}`);
-            }
-            return response.text();
-        })
+    fetch(url)
+        .then(response => response.text())
         .then(html => {
-            const container = document.getElementById(containerId);
-            if (container) {
-                container.innerHTML = html;
-                return html;
-            }
-            throw new Error(`Container ${containerId} not found`);
-        });
+            document.getElementById(containerId).innerHTML = html;
+        })
+        .catch(error => console.error('Error loading component:', error));
 }
 
-// Función para manejar animaciones de entrada
+//
 function handleIntersection(entries, observer) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -29,7 +17,7 @@ function handleIntersection(entries, observer) {
     });
 }
 
-// Función para inicializar hover effects en cards
+//inicializar hover effects en cards
 function initializeCardEffects() {
     document.querySelectorAll('.card').forEach(card => {
         card.addEventListener('mouseenter', () => {
@@ -51,11 +39,11 @@ function handleContactForm() {
         formulario.addEventListener('submit', function(event) {
             event.preventDefault();
             
-            // Añadir clase para feedback visual
+            //añadir paraq  ue el botón de enviar tenga un efecto de carga
             const submitButton = formulario.querySelector('button[type="submit"]');
             submitButton.classList.add('loading');
             
-            // Simular envío (reemplazar con tu lógica real)
+            // aplicar el envío!!
             setTimeout(() => {
                 submitButton.classList.remove('loading');
                 submitButton.classList.add('success');
@@ -70,52 +58,89 @@ function handleContactForm() {
     }
 }
 
-// Función para inicializar animaciones
+//para las animaciones de entrada
 function initAnimations() {
-    // Initialize content animations
+    //circulos flotantes
+    const circles = document.querySelectorAll('.floating-circle');
+    circles.forEach(circle => {
+        circle.style.opacity = '0.3'; 
+    });
+
+    //para inicializar el efecto de entrada
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('active');
+                observer.unobserve(entry.target);
             }
         });
     }, {
         threshold: 0.1
     });
 
+    // Observe all animate-in elements
     document.querySelectorAll('.animate-in').forEach(element => {
         observer.observe(element);
     });
 
-    // Initialize floating circles
-    initFloatingCircles();
+    //inicializr el efecto de texto tipeado
+    const typedElement = document.querySelector('.typed-text');
+    if (typedElement) {
+        new Typed('.typed-text', {
+            strings: typedElement.dataset.typedItems.split(','),
+            typeSpeed: 100,
+            backSpeed: 50,
+            backDelay: 2000,
+            loop: true
+        });
+    }
 }
 
-function initFloatingCircles() {
-    const circles = document.querySelectorAll('.floating-circle');
-    circles.forEach((circle, index) => {
-        // Remove any existing animations
-        circle.style.animation = 'none';
-        circle.offsetHeight; // Trigger reflow
-        
-        // Add animation with delay based on index
-        const animations = [
-            'fadeCircle1 8s ease-in-out infinite',
-            'fadeCircle2 12s ease-in-out infinite',
-            'fadeCircle3 10s ease-in-out infinite',
-            'fadeCircle4 15s ease-in-out infinite'
-        ];
-        
-        circle.style.animation = animations[index];
-        circle.style.opacity = '0'; // Start with 0 opacity
+// Función para inicializar animación delfondo
+function initBackgroundAnimation() {
+    if (!window.FinisherHeader) {
+        console.error('FinisherHeader not loaded');
+        return;
+    }
+
+    const finisherHeader = new FinisherHeader({
+        "count": 30,
+        "size": {
+            "min": 2,
+            "max": 8,
+            "pulse": 0.5
+        },
+        "speed": {
+            "x": {
+                "min": 0.2,
+                "max": 1.8
+            },
+            "y": {
+                "min": 0.2,
+                "max": 1.8
+            }
+        },
+        "colors": {
+            "background": "#000000",
+            "particles": [
+                "rgba(255, 158, 170, 0.3)",
+                "rgba(157, 129, 172, 0.3)"
+            ]
+        },
+        "blending": "screen",
+        "opacity": {
+            "center": 0.5,
+            "edge": 0.05
+        },
+        "shapes": ["c"]
     });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    loadComponent('/src/components/nav.html', 'nav-placeholder')
-        .then(() => {
-            router.init();
-            initAnimations();
-        })
-        .catch(error => console.error('Error loading navigation:', error));
+    router.init();
+    loadComponent('/src/components/nav.html', 'nav-placeholder');
+    initAnimations();
+    initBackgroundAnimation(); 
+    initializeCardEffects();
+    handleContactForm();
 });
